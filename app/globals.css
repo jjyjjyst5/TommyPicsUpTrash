@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f6fbfd;
+  --foreground: #0b2533;
+  --surface: #ffffff;
+  --surface-muted: #eef6f9;
+  --border: #d4e6ed;
+  --primary: #0284c7; /* river blue */
+  --primary-deep: #075985;
+  --teal: #0d9488; /* creek teal */
+  --accent: #38bdf8;
+  --muted: #5b7682;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-deep: var(--primary-deep);
+  --color-teal: var(--teal);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Soft, layered "water" gradient used behind hero + section dividers */
+.bg-water {
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(56, 189, 248, 0.25), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(13, 148, 136, 0.18), transparent 55%),
+    linear-gradient(180deg, #06425f 0%, #075985 45%, #0284c7 100%);
+}
+
+/* Animated wave shimmer */
+@keyframes wave-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 1200px 0; }
+}
+.wave-line {
+  animation: wave-drift 22s linear infinite;
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.float-soft { animation: float-soft 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-line, .float-soft { animation: none; }
+}
+
+::selection {
+  background: var(--accent);
+  color: #06304a;
+}
