@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowDown, Trash2, Scale } from "lucide-react";
 import CountUp from "./CountUp";
 import { HERO, SOCIAL } from "@/lib/content";
@@ -21,14 +22,21 @@ function IGIcon({ className }: { className?: string }) {
 
 export default function Hero({ stats }: { stats: Stats }) {
   return (
-    <section id="top" className="bg-water relative overflow-hidden text-white">
-      {/* Floating ambient bubbles */}
-      <div className="pointer-events-none absolute inset-0 opacity-40">
-        <div className="float-soft absolute left-[12%] top-[28%] h-3 w-3 rounded-full bg-white/40" />
-        <div className="float-soft absolute left-[78%] top-[22%] h-2 w-2 rounded-full bg-white/30 [animation-delay:1.5s]" />
-        <div className="float-soft absolute left-[60%] top-[60%] h-4 w-4 rounded-full bg-white/20 [animation-delay:.8s]" />
-        <div className="float-soft absolute left-[30%] top-[68%] h-2 w-2 rounded-full bg-white/30 [animation-delay:2s]" />
-      </div>
+    <section id="top" className="relative overflow-hidden bg-[#052f44] text-white">
+      {/* Background photo */}
+      <Image
+        src="/tommy_background.jpeg"
+        alt="A river winding through the forested hills of western Pennsylvania, with a rainbow over the water"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+      {/* Legibility overlays — strong on the left (text), light over the sky/rainbow */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#052f44]/92 via-[#06304a]/45 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#052f44]/90 via-transparent to-transparent" />
+      {/* Thin top scrim so the nav stays readable over the bright sky */}
+      <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#052f44]/70 to-transparent" />
 
       <div className="relative mx-auto max-w-6xl px-5 pb-40 pt-36 md:pt-44">
         <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-accent ring-1 ring-white/15">
