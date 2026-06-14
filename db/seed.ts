@@ -82,9 +82,9 @@ async function seed() {
         url: "https://www.audacy.com/kdkaradio/shows/colin-dunlap",
         publishedDate: "2026-06-11",
         excerpt:
-          "Tommy joined The Colin Dunlap Show on KDKA NewsRadio (June 11, 2026) to talk about his Ohio River and Stevenson Creek cleanups. Listen to the full 3 p.m. hour below.",
+          "Tommy joined The Colin Dunlap Show on KDKA NewsRadio (June 11, 2026) to talk about his Ohio River and Stevenson Creek cleanups. Listen to the interview below.",
         audioEmbedUrl:
-          "https://serve.castfire.com/audio/8446691/8446691_2026-06-11-220331.128.mp3?rssID=4646",
+          "https://i3npbj7xxtlmfsdh.public.blob.vercel-storage.com/press/kdka-colin-dunlap-show-2026-06-11.mp3",
         transcript: null,
         sortOrder: 0,
       },
