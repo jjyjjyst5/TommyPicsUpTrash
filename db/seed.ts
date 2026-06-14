@@ -77,13 +77,14 @@ async function seed() {
     await db.insert(schema.pressItems).values([
       {
         title: "KDKA NewsRadio Interview",
-        outlet: "KDKA NewsRadio (Pittsburgh)",
+        outlet: "The Colin Dunlap Show · KDKA NewsRadio (Pittsburgh)",
         type: "radio",
-        url: "https://www.audacy.com/kdkaradio",
+        url: "https://www.audacy.com/kdkaradio/shows/colin-dunlap",
         publishedDate: "2026-06-11",
         excerpt:
-          "Tommy joined KDKA NewsRadio to talk about his Ohio River and Stevenson Creek cleanups. Audio and transcript coming soon.",
-        audioEmbedUrl: null,
+          "Tommy joined The Colin Dunlap Show on KDKA NewsRadio (June 11, 2026) to talk about his Ohio River and Stevenson Creek cleanups. Listen to the full 3 p.m. hour below.",
+        audioEmbedUrl:
+          "https://serve.castfire.com/audio/8446691/8446691_2026-06-11-220331.128.mp3?rssID=4646",
         transcript: null,
         sortOrder: 0,
       },

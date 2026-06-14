@@ -4,6 +4,11 @@ import { useState } from "react";
 import { Radio, ChevronDown, ExternalLink } from "lucide-react";
 import type { PressItem } from "@/db/schema";
 
+/** A direct audio file (mp3/m4a/etc) vs. an embeddable player page (iframe). */
+function isDirectAudio(url: string) {
+  return /\.(mp3|m4a|aac|wav|ogg|oga|opus)(\?|#|$)/i.test(url);
+}
+
 /** Featured interview card with audio embed + expandable transcript. */
 export default function PressFeature({ item }: { item: PressItem }) {
   const [open, setOpen] = useState(false);
@@ -24,12 +29,18 @@ export default function PressFeature({ item }: { item: PressItem }) {
 
       {item.audioEmbedUrl && (
         <div className="px-7">
-          <iframe
-            src={item.audioEmbedUrl}
-            title={item.title}
-            className="h-32 w-full rounded-xl border"
-            allow="autoplay; clipboard-write; encrypted-media"
-          />
+          {isDirectAudio(item.audioEmbedUrl) ? (
+            <audio controls preload="metadata" className="w-full" src={item.audioEmbedUrl}>
+              Your browser doesn&apos;t support audio playback.
+            </audio>
+          ) : (
+            <iframe
+              src={item.audioEmbedUrl}
+              title={item.title}
+              className="h-32 w-full rounded-xl border"
+              allow="autoplay; clipboard-write; encrypted-media"
+            />
+          )}
         </div>
       )}
 
