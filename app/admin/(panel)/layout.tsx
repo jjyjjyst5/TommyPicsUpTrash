@@ -3,6 +3,8 @@ import {
   LayoutDashboard,
   PlusCircle,
   ImagePlus,
+  Sparkles,
+  BookOpen,
   Newspaper,
   Settings,
   KeyRound,
@@ -16,7 +18,9 @@ export const dynamic = "force-dynamic";
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/hauls", label: "Log a haul", icon: PlusCircle },
+  { href: "/admin/finds", label: "Wildest finds", icon: Sparkles },
   { href: "/admin/gallery", label: "Gallery", icon: ImagePlus },
+  { href: "/admin/story", label: "His story", icon: BookOpen },
   { href: "/admin/press", label: "Press & interview", icon: Newspaper },
   { href: "/admin/settings", label: "Water bodies", icon: Settings },
   { href: "/admin/account", label: "Account", icon: KeyRound },

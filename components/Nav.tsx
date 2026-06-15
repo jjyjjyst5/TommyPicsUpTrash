@@ -6,6 +6,7 @@ import { Waves, Menu, X } from "lucide-react";
 const LINKS = [
   { href: "#impact", label: "The Count" },
   { href: "#story", label: "His Story" },
+  { href: "#finds", label: "Wildest Finds" },
   { href: "#gallery", label: "Gallery" },
   { href: "#press", label: "In the News" },
   { href: "#help", label: "Get Involved" },

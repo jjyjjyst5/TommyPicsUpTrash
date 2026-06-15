@@ -73,6 +73,24 @@ export const pressItems = pgTable("press_items", {
   sortOrder: integer("sort_order").notNull().default(0),
 });
 
+/** Notable "wildest finds" — photos & videos of trash scenes, admin-managed. */
+export const crazyFinds = pgTable("crazy_finds", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description").notNull().default(""),
+  mediaUrl: text("media_url").notNull(),
+  mediaType: text("media_type").notNull().default("image"), // 'image' | 'video' | 'embed' | 'link'
+  sortOrder: integer("sort_order").notNull().default(0),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+/** Editable site copy (key/value), e.g. the "His Story" prose. */
+export const siteContent = pgTable("site_content", {
+  key: text("key").primaryKey(),
+  value: text("value").notNull().default(""),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 /** Single-admin credentials, stored in the DB so the password is changeable in-app. */
 export const adminAccount = pgTable("admin_account", {
   id: serial("id").primaryKey(),
@@ -83,6 +101,8 @@ export const adminAccount = pgTable("admin_account", {
 
 export type WaterBody = typeof waterBodies.$inferSelect;
 export type AdminAccount = typeof adminAccount.$inferSelect;
+export type CrazyFind = typeof crazyFinds.$inferSelect;
+export type SiteContent = typeof siteContent.$inferSelect;
 export type Cleanup = typeof cleanups.$inferSelect;
 export type GalleryImage = typeof galleryImages.$inferSelect;
 export type PressItem = typeof pressItems.$inferSelect;

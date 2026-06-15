@@ -1,7 +1,16 @@
 import Reveal from "./Reveal";
-import { STORY, TIMELINE } from "@/lib/content";
+import { TIMELINE } from "@/lib/content";
 
-export default function Story() {
+/** Split editable copy into clean paragraphs: blank line = new paragraph. */
+function toParagraphs(body: string): string[] {
+  return body
+    .split(/\n\s*\n/)
+    .map((p) => p.replace(/\s*\n\s*/g, " ").trim())
+    .filter(Boolean);
+}
+
+export default function Story({ heading, body }: { heading: string; body: string }) {
+  const paragraphs = toParagraphs(body);
   return (
     <section id="story" className="bg-surface py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5">
@@ -12,11 +21,11 @@ export default function Story() {
                 His story
               </p>
               <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
-                {STORY.heading}
+                {heading}
               </h2>
             </Reveal>
             <div className="mt-6 space-y-5">
-              {STORY.paragraphs.map((p, i) => (
+              {paragraphs.map((p, i) => (
                 <Reveal key={i} delay={0.05 * i}>
                   <p className="leading-relaxed text-muted">{p}</p>
                 </Reveal>
