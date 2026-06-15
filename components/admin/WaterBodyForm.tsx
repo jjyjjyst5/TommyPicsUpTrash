@@ -1,15 +1,28 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import { updateWaterBody } from "@/app/actions/waterBodies";
 import type { WaterBody } from "@/db/schema";
 
-export default function WaterBodyForm({ body }: { body: WaterBody }) {
+export default function WaterBodyForm({
+  body,
+  currentBags,
+  currentBottles,
+}: {
+  body: WaterBody;
+  currentBags: number;
+  currentBottles: number;
+}) {
   const [state, action, pending] = useActionState(
     updateWaterBody,
     null as { ok?: boolean; error?: string; message?: string } | null
   );
+
+  // Controlled so we can preview the estimated pounds live.
+  const [bags, setBags] = useState(String(currentBags));
+  const [lbsPerBag, setLbsPerBag] = useState(String(body.lbsPerBag));
+  const estPounds = Math.round((Number(bags) || 0) * (Number(lbsPerBag) || 0));
 
   return (
     <form action={action} className="rounded-2xl border bg-surface p-6 shadow-sm">
@@ -19,16 +32,42 @@ export default function WaterBodyForm({ body }: { body: WaterBody }) {
         <span className="text-xs text-muted">{body.location}</span>
       </div>
 
-      <div className="mt-4">
-        <label className="block text-sm font-medium">Blurb</label>
-        <textarea
-          name="blurb"
-          defaultValue={body.blurb}
-          rows={3}
-          className="mt-1 w-full rounded-xl border bg-background px-3 py-2.5 outline-none focus:border-primary"
-        />
+      {/* Totals */}
+      <div className="mt-4 grid gap-4 sm:grid-cols-3">
+        <div>
+          <label className="block text-sm font-medium">Total bags</label>
+          <input
+            type="number"
+            name="totalBags"
+            min={0}
+            value={bags}
+            onChange={(e) => setBags(e.target.value)}
+            className="mt-1 w-full rounded-xl border bg-background px-3 py-2.5 outline-none focus:border-primary"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Total bottles</label>
+          <input
+            type="number"
+            name="totalBottles"
+            min={0}
+            defaultValue={currentBottles}
+            className="mt-1 w-full rounded-xl border bg-background px-3 py-2.5 outline-none focus:border-primary"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Est. pounds</label>
+          <div className="mt-1 rounded-xl border bg-surface-muted px-3 py-2.5 text-foreground/80">
+            {estPounds.toLocaleString("en-US")}
+            <span className="ml-1 text-xs text-muted">auto</span>
+          </div>
+        </div>
       </div>
+      <p className="mt-2 text-xs text-muted">
+        Estimated pounds = total bags × pounds-per-bag. Adjust either to change it.
+      </p>
 
+      {/* Estimator + trips */}
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <div>
           <label className="block text-sm font-medium">Pounds per bag</label>
@@ -37,10 +76,10 @@ export default function WaterBodyForm({ body }: { body: WaterBody }) {
             name="lbsPerBag"
             min={1}
             step="0.5"
-            defaultValue={body.lbsPerBag}
+            value={lbsPerBag}
+            onChange={(e) => setLbsPerBag(e.target.value)}
             className="mt-1 w-full rounded-xl border bg-background px-3 py-2.5 outline-none focus:border-primary"
           />
-          <p className="mt-1 text-xs text-muted">Used to estimate pounds when a haul has no weighed amount.</p>
         </div>
         <div>
           <label className="block text-sm font-medium">Kayak trips</label>
@@ -53,9 +92,20 @@ export default function WaterBodyForm({ body }: { body: WaterBody }) {
           />
         </div>
       </div>
+
+      <div className="mt-4">
+        <label className="block text-sm font-medium">Blurb</label>
+        <textarea
+          name="blurb"
+          defaultValue={body.blurb}
+          rows={3}
+          className="mt-1 w-full rounded-xl border bg-background px-3 py-2.5 outline-none focus:border-primary"
+        />
+      </div>
+
       <p className="mt-3 text-xs text-muted">
-        Bag &amp; bottle totals come from logged hauls — add or edit them under{" "}
-        <strong>Log a haul</strong>.
+        Editing a total adjusts the baseline; hauls you log under{" "}
+        <strong>Log a haul</strong> still add on top.
       </p>
 
       <div className="mt-4 flex items-center gap-3">

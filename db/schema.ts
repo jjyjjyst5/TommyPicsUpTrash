@@ -73,7 +73,16 @@ export const pressItems = pgTable("press_items", {
   sortOrder: integer("sort_order").notNull().default(0),
 });
 
+/** Single-admin credentials, stored in the DB so the password is changeable in-app. */
+export const adminAccount = pgTable("admin_account", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull(),
+  passwordHash: text("password_hash").notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 export type WaterBody = typeof waterBodies.$inferSelect;
+export type AdminAccount = typeof adminAccount.$inferSelect;
 export type Cleanup = typeof cleanups.$inferSelect;
 export type GalleryImage = typeof galleryImages.$inferSelect;
 export type PressItem = typeof pressItems.$inferSelect;

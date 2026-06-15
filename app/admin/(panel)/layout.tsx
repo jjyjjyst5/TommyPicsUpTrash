@@ -5,6 +5,7 @@ import {
   ImagePlus,
   Newspaper,
   Settings,
+  KeyRound,
   LogOut,
   ExternalLink,
 } from "lucide-react";
@@ -18,6 +19,7 @@ const NAV = [
   { href: "/admin/gallery", label: "Gallery", icon: ImagePlus },
   { href: "/admin/press", label: "Press & interview", icon: Newspaper },
   { href: "/admin/settings", label: "Water bodies", icon: Settings },
+  { href: "/admin/account", label: "Account", icon: KeyRound },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

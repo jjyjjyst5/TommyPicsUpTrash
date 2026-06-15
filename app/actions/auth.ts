@@ -3,12 +3,12 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import {
-  verifyCredentials,
   createSessionToken,
   SESSION_COOKIE,
   SESSION_MAX_AGE,
   getSession,
 } from "@/lib/auth";
+import { verifyCredentials } from "@/lib/adminAuth";
 
 export async function login(_prev: unknown, formData: FormData) {
   const username = String(formData.get("username") ?? "");

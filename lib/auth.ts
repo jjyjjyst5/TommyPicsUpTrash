@@ -1,16 +1,9 @@
 import { SignJWT, jwtVerify } from "jose";
-import bcrypt from "bcryptjs";
 
 /**
- * Lightweight single-admin auth. Credentials come from env:
- *   ADMIN_USERNAME       (default "tommy")
- *   ADMIN_PASSWORD_HASH  (bcrypt hash) — preferred
- *   ADMIN_PASSWORD       (plaintext)   — dev convenience fallback
- *   AUTH_SECRET          (JWT signing secret)
- *
- * The session is a JWT in an httpOnly cookie. Token verification (jose) is
- * edge-safe so middleware can guard /admin; credential checking (bcrypt) runs
- * in the Node server action only.
+ * Session/token helpers ONLY — deliberately edge-safe (jose, no DB, no bcrypt)
+ * so `proxy.ts` middleware can import it. Credential checking lives in
+ * `lib/adminAuth.ts` (DB-backed, Node-only). AUTH_SECRET signs the JWT.
  */
 
 export const SESSION_COOKIE = "tt_session";
@@ -20,18 +13,6 @@ function secret() {
   return new TextEncoder().encode(
     process.env.AUTH_SECRET ?? "dev-insecure-secret-change-me"
   );
-}
-
-export function adminUsername() {
-  return process.env.ADMIN_USERNAME ?? "tommy";
-}
-
-export async function verifyCredentials(username: string, password: string) {
-  if (username !== adminUsername()) return false;
-  const hash = process.env.ADMIN_PASSWORD_HASH;
-  if (hash) return bcrypt.compare(password, hash);
-  const plain = process.env.ADMIN_PASSWORD ?? "tommytrash"; // dev default
-  return password === plain;
 }
 
 export async function createSessionToken(username: string) {
