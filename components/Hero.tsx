@@ -32,11 +32,9 @@ export default function Hero({ stats }: { stats: Stats }) {
         sizes="100vw"
         className="object-cover object-center"
       />
-      {/* Legibility overlays — strong on the left (text), light over the sky/rainbow */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#052f44]/92 via-[#06304a]/45 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#052f44]/90 via-transparent to-transparent" />
-      {/* Thin top scrim so the nav stays readable over the bright sky */}
-      <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#052f44]/70 to-transparent" />
+      {/* Legibility overlays — keep the river & rainbow visible while text stays crisp */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#052f44]/95 via-[#06304a]/72 to-[#075985]/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#052f44]/92 via-transparent to-[#052f44]/55" />
 
       <div className="relative mx-auto max-w-6xl px-5 pb-40 pt-36 md:pt-44">
         <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-accent ring-1 ring-white/15">
