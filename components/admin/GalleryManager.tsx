@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { Upload, Trash2, CheckCircle2 } from "lucide-react";
 import { uploadGalleryImage, deleteGalleryImage } from "@/app/actions/gallery";
+import { compressFormImage } from "@/lib/imageCompress";
 import type { GalleryImage } from "@/db/schema";
 
 export default function GalleryManager({
@@ -13,7 +14,10 @@ export default function GalleryManager({
   bodies: { id: number; name: string }[];
 }) {
   const [state, action, pending] = useActionState(
-    uploadGalleryImage,
+    async (prev: { ok?: boolean; error?: string; message?: string } | null, fd: FormData) => {
+      await compressFormImage(fd); // shrink big photos in-browser before upload
+      return uploadGalleryImage(prev, fd);
+    },
     null as { ok?: boolean; error?: string; message?: string } | null
   );
 
@@ -32,7 +36,9 @@ export default function GalleryManager({
             required
             className="mt-1 w-full rounded-xl border bg-background px-3 py-2.5 text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-white"
           />
-          <p className="mt-1 text-xs text-muted">JPG, PNG, or WebP up to 4&nbsp;MB.</p>
+          <p className="mt-1 text-xs text-muted">
+            JPG, PNG, or WebP. Large photos are optimized automatically.
+          </p>
         </div>
         <div>
           <label className="block text-sm font-medium">Caption</label>

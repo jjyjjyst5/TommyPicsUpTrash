@@ -3,9 +3,20 @@
 import { useActionState } from "react";
 import { Plus, Trash2, CheckCircle2, Film, ImageIcon, Link2 } from "lucide-react";
 import { addFind, updateFind, deleteFind } from "@/app/actions/finds";
+import { compressFormImage } from "@/lib/imageCompress";
 import type { CrazyFind } from "@/db/schema";
 
 type Result = { ok?: boolean; error?: string; message?: string } | null;
+
+/** Wrap a finds action so any uploaded image is shrunk in-browser first. */
+async function withCompression(
+  fn: (prev: Result, fd: FormData) => Promise<Result>,
+  prev: Result,
+  fd: FormData
+): Promise<Result> {
+  await compressFormImage(fd);
+  return fn(prev, fd);
+}
 
 function MediaInputs() {
   return (
@@ -18,7 +29,9 @@ function MediaInputs() {
           accept="image/*,video/*"
           className="mt-1 w-full rounded-xl border bg-background px-3 py-2.5 text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-white"
         />
-        <p className="mt-1 text-xs text-muted">Photos up to 4 MB. For videos, use a link below.</p>
+        <p className="mt-1 text-xs text-muted">
+          Photos are optimized automatically. For videos, use a link below.
+        </p>
       </div>
       <div>
         <label className="block text-sm font-medium">…or paste a media link</label>
@@ -43,7 +56,10 @@ function TypeChip({ type }: { type: string }) {
 }
 
 function FindRow({ find }: { find: CrazyFind }) {
-  const [state, action, pending] = useActionState(updateFind, null as Result);
+  const [state, action, pending] = useActionState(
+    (prev: Result, fd: FormData) => withCompression(updateFind, prev, fd),
+    null as Result
+  );
   return (
     <div className="rounded-2xl border bg-surface p-5">
       <div className="flex items-start gap-4">
@@ -114,7 +130,10 @@ function FindRow({ find }: { find: CrazyFind }) {
 }
 
 export default function FindsManager({ finds }: { finds: CrazyFind[] }) {
-  const [state, action, pending] = useActionState(addFind, null as Result);
+  const [state, action, pending] = useActionState(
+    (prev: Result, fd: FormData) => withCompression(addFind, prev, fd),
+    null as Result
+  );
   return (
     <div className="space-y-8">
       <form action={action} className="rounded-3xl border bg-surface p-6 shadow-sm">
