@@ -28,8 +28,8 @@ export default async function Home() {
       <Nav />
       <main className="flex-1">
         <Hero stats={stats} />
-        <ImpactDashboard stats={stats} />
         <Story heading={story.heading} body={story.body} />
+        <ImpactDashboard stats={stats} />
         <Quotes />
         <CrazyFinds finds={finds} />
         <Gallery images={images} />

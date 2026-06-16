@@ -99,7 +99,7 @@ export default function ImpactDashboard({ stats }: { stats: Stats }) {
             The running count
           </p>
           <h2 className="mt-2 max-w-2xl text-3xl font-bold tracking-tight md:text-4xl">
-            Every bag, counted. Every pound, estimated from the haul.
+            The count, broken down by waterway.
           </h2>
           <p className="mt-3 max-w-2xl text-muted">
             Totals update as Tommy logs each cleanup. Pounds are estimated at{" "}
@@ -108,17 +108,8 @@ export default function ImpactDashboard({ stats }: { stats: Stats }) {
           </p>
         </Reveal>
 
-        {/* Grand totals band */}
-        <Reveal delay={0.05}>
-          <div className="mt-10 grid gap-4 rounded-3xl bg-water p-8 text-white sm:grid-cols-3">
-            <GrandStat label="Total bags hauled" value={stats.totals.bags} />
-            <GrandStat label="Est. pounds removed" value={stats.totals.pounds} />
-            <GrandStat label="Plastic bottles" value={stats.totals.bottles} />
-          </div>
-        </Reveal>
-
         {/* Per-water-body cards */}
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
           {stats.bodies.map((s, i) => (
             <Reveal key={s.body.id} delay={0.08 * (i + 1)}>
               <BodyCard s={s} />
@@ -132,19 +123,5 @@ export default function ImpactDashboard({ stats }: { stats: Stats }) {
         </p>
       </div>
     </section>
-  );
-}
-
-function GrandStat({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="text-center sm:text-left">
-      <CountUp
-        value={value}
-        className="block text-4xl font-bold tabular-nums md:text-5xl"
-      />
-      <div className="mt-1 text-sm font-medium uppercase tracking-wide text-white/70">
-        {label}
-      </div>
-    </div>
   );
 }
