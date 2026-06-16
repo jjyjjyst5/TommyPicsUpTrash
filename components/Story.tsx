@@ -18,10 +18,7 @@ export default function Story({ heading, body }: { heading: string; body: string
         <div className="grid gap-12 md:grid-cols-2 md:gap-16">
           <div>
             <Reveal>
-              <p className="text-sm font-semibold uppercase tracking-widest text-teal">
-                My Trash Story
-              </p>
-              <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
                 {heading}
               </h2>
             </Reveal>
