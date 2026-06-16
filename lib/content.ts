@@ -13,7 +13,7 @@ export const SOCIAL = {
 
 export const HERO = {
   eyebrow: "One person. One kayak. Cleaner water.",
-  title: "Tommy Pics 📸 Trash",
+  title: "Tommy Pics 📸 Up Trash",
   subtitle:
     "Tom Ross has spent years paddling out — alone — to pull litter from Pittsburgh's Ohio River and Clearwater's Stevenson Creek. One bag at a time, he's proving what a single determined person can do for our waterways.",
 };
