@@ -17,7 +17,7 @@ export async function uploadGalleryImage(_prev: unknown, formData: FormData) {
   if (!(file instanceof File) || file.size === 0)
     return { error: "Choose an image to upload." };
   if (!file.type.startsWith("image/")) return { error: "That file isn't an image." };
-  if (file.size > 8 * 1024 * 1024) return { error: "Image must be under 8 MB." };
+  if (file.size > 4 * 1024 * 1024) return { error: "Image must be under 4 MB." };
 
   try {
     const url = await saveImage(file);

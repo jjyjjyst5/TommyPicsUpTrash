@@ -32,7 +32,7 @@ export default function GalleryManager({
             required
             className="mt-1 w-full rounded-xl border bg-background px-3 py-2.5 text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-white"
           />
-          <p className="mt-1 text-xs text-muted">JPG, PNG, or WebP up to 8&nbsp;MB.</p>
+          <p className="mt-1 text-xs text-muted">JPG, PNG, or WebP up to 4&nbsp;MB.</p>
         </div>
         <div>
           <label className="block text-sm font-medium">Caption</label>

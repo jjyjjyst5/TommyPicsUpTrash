@@ -9,7 +9,7 @@ import { detectMediaTypeFromUrl, mediaTypeFromMime } from "@/lib/media";
 
 export type FindResult = { ok?: boolean; error?: string; message?: string };
 
-const MAX_UPLOAD = 4.5 * 1024 * 1024; // serverless body limit — videos should use a link
+const MAX_UPLOAD = 4 * 1024 * 1024; // headroom under the 4.5mb server-action limit — videos should use a link
 
 function refresh() {
   revalidatePath("/");
@@ -27,7 +27,7 @@ async function resolveMedia(formData: FormData): Promise<
     if (!file.type.startsWith("image/") && !file.type.startsWith("video/"))
       return { error: "Upload an image or video file." };
     if (file.size > MAX_UPLOAD)
-      return { error: "File is over 4.5 MB. For videos, paste a YouTube/Instagram/X link instead." };
+      return { error: "File is over 4 MB. Use a smaller photo, or for videos paste a YouTube/Instagram/X link instead." };
     const saved = await saveImage(file);
     return { url: saved, type: mediaTypeFromMime(file.type) };
   }

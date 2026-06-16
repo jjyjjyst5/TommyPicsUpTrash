@@ -18,7 +18,7 @@ function MediaInputs() {
           accept="image/*,video/*"
           className="mt-1 w-full rounded-xl border bg-background px-3 py-2.5 text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-white"
         />
-        <p className="mt-1 text-xs text-muted">Up to 4.5 MB.</p>
+        <p className="mt-1 text-xs text-muted">Photos up to 4 MB. For videos, use a link below.</p>
       </div>
       <div>
         <label className="block text-sm font-medium">…or paste a media link</label>
