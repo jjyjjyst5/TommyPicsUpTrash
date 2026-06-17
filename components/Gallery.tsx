@@ -2,6 +2,7 @@ import { Camera, ImageIcon } from "lucide-react";
 import Reveal from "./Reveal";
 import { SOCIAL } from "@/lib/content";
 import type { GalleryImage } from "@/db/schema";
+import type { SiteText } from "@/lib/siteText";
 
 const PLACEHOLDERS = [
   "On the water at first light",
@@ -12,7 +13,13 @@ const PLACEHOLDERS = [
   "What a clean bank looks like",
 ];
 
-export default function Gallery({ images }: { images: GalleryImage[] }) {
+export default function Gallery({
+  images,
+  text,
+}: {
+  images: GalleryImage[];
+  text: SiteText["gallery"];
+}) {
   const hasImages = images.length > 0;
 
   return (
@@ -20,14 +27,12 @@ export default function Gallery({ images }: { images: GalleryImage[] }) {
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">
-            From the water
+            {text.eyebrow}
           </p>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
-            The view from the kayak
-          </h2>
+          <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{text.heading}</h2>
           <p className="mt-3 max-w-2xl text-muted">
             {hasImages
-              ? "Real photos from Tommy's cleanups — the hauls, the river, and the wildlife that depends on it."
+              ? text.intro
               : "Tommy's real cleanup photos will live here. Until they're uploaded, follow along on social for the daily view from the water."}
           </p>
         </Reveal>

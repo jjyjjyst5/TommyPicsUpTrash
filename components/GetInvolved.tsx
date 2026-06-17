@@ -1,22 +1,20 @@
 import { Droplets, ExternalLink, Heart } from "lucide-react";
 import Reveal from "./Reveal";
 import { HOW_TO_HELP, PARTNERS, SOCIAL } from "@/lib/content";
+import type { SiteText } from "@/lib/siteText";
 
-export default function GetInvolved() {
+export default function GetInvolved({ text }: { text: SiteText["involved"] }) {
   return (
     <section id="help" className="bg-background py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">
-            Get involved
+            {text.eyebrow}
           </p>
           <h2 className="mt-2 max-w-2xl text-3xl font-bold tracking-tight md:text-4xl">
-            One person made a dent. Imagine all of us.
+            {text.heading}
           </h2>
-          <p className="mt-3 max-w-2xl text-muted">
-            You don&apos;t need a kayak to help. Small, repeated choices keep more litter out
-            of the water than any single cleanup ever could.
-          </p>
+          <p className="mt-3 max-w-2xl text-muted">{text.intro}</p>
         </Reveal>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -67,10 +65,8 @@ export default function GetInvolved() {
         <Reveal delay={0.15}>
           <div className="bg-water mt-6 flex flex-col items-start justify-between gap-5 rounded-3xl p-8 text-white sm:flex-row sm:items-center">
             <div>
-              <h3 className="text-xl font-bold">Follow the count. Spread the word.</h3>
-              <p className="mt-1 text-white/80">
-                Every share puts more eyes on the water. Follow @{SOCIAL.handle}.
-              </p>
+              <h3 className="text-xl font-bold">{text.ctaTitle}</h3>
+              <p className="mt-1 text-white/80">{text.ctaBody}</p>
             </div>
             <div className="flex gap-3">
               <a

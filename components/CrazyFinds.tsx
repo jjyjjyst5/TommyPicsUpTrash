@@ -2,6 +2,7 @@ import { Sparkles, ExternalLink } from "lucide-react";
 import Reveal from "./Reveal";
 import { buildEmbedUrl, isPortraitEmbed } from "@/lib/media";
 import type { CrazyFind } from "@/db/schema";
+import type { SiteText } from "@/lib/siteText";
 
 function FindMedia({ find }: { find: CrazyFind }) {
   const portrait = find.mediaType === "embed" && isPortraitEmbed(find.mediaUrl);
@@ -55,7 +56,13 @@ function FindMedia({ find }: { find: CrazyFind }) {
   );
 }
 
-export default function CrazyFinds({ finds }: { finds: CrazyFind[] }) {
+export default function CrazyFinds({
+  finds,
+  text,
+}: {
+  finds: CrazyFind[];
+  text: SiteText["finds"];
+}) {
   if (finds.length === 0) return null; // hide section until Tommy adds finds
 
   return (
@@ -63,15 +70,12 @@ export default function CrazyFinds({ finds }: { finds: CrazyFind[] }) {
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>
           <p className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-teal">
-            <Sparkles className="h-4 w-4" /> Wildest finds
+            <Sparkles className="h-4 w-4" /> {text.eyebrow}
           </p>
           <h2 className="mt-2 max-w-2xl text-3xl font-bold tracking-tight md:text-4xl">
-            You won&apos;t believe what comes out of the water
+            {text.heading}
           </h2>
-          <p className="mt-3 max-w-2xl text-muted">
-            Beyond the bottles: the strangest, most jaw-dropping things Tommy has pulled from
-            the river and creek — and the trash scenes that say it all.
-          </p>
+          <p className="mt-3 max-w-2xl text-muted">{text.intro}</p>
         </Reveal>
 
         <div className="mt-10 grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">

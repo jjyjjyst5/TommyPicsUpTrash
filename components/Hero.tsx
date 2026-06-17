@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { ArrowDown, Trash2, Scale } from "lucide-react";
 import CountUp from "./CountUp";
-import { HERO, SOCIAL } from "@/lib/content";
+import { SOCIAL } from "@/lib/content";
 import type { Stats } from "@/lib/stats";
+import type { SiteText } from "@/lib/siteText";
 
 function XIcon({ className }: { className?: string }) {
   return (
@@ -20,7 +21,7 @@ function IGIcon({ className }: { className?: string }) {
   );
 }
 
-export default function Hero({ stats }: { stats: Stats }) {
+export default function Hero({ stats, text }: { stats: Stats; text: SiteText["hero"] }) {
   return (
     <section id="top" className="relative overflow-hidden bg-[#052f44] text-white">
       {/* Background photo */}
@@ -38,13 +39,13 @@ export default function Hero({ stats }: { stats: Stats }) {
 
       <div className="relative mx-auto max-w-6xl px-5 pb-40 pt-36 md:pt-44">
         <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-accent ring-1 ring-white/15">
-          {HERO.eyebrow}
+          {text.eyebrow}
         </p>
         <h1 className="max-w-3xl text-5xl font-bold leading-[1.05] tracking-tight md:text-7xl">
-          {HERO.title}
+          {text.title}
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/85 md:text-xl">
-          {HERO.subtitle}
+          {text.subtitle}
         </p>
 
         {/* Headline counters */}

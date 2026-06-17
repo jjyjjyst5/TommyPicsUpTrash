@@ -1,6 +1,12 @@
 import { getDb, schema } from "@/db";
 import { desc, asc, inArray } from "drizzle-orm";
 import { STORY } from "@/lib/content";
+import {
+  SITE_TEXT_KEYS,
+  resolveSiteText,
+  resolveSiteTextFlat,
+  type SiteText,
+} from "@/lib/siteText";
 
 export async function getGallery() {
   const db = await getDb();
@@ -44,6 +50,32 @@ export async function getStoryContent(): Promise<{ heading: string; body: string
     heading: map["story_heading"]?.trim() || STORY.heading,
     body: map["story_body"]?.trim() || STORY.paragraphs.join("\n\n"),
   };
+}
+
+/**
+ * Resolved editable text blocks for the homepage (Hero + every section's
+ * eyebrow/heading/intro). Reads saved overrides from site_content and falls
+ * back to the lib/content.ts defaults for anything left blank.
+ */
+export async function getSiteText(): Promise<SiteText> {
+  const db = await getDb();
+  const rows = await db
+    .select()
+    .from(schema.siteContent)
+    .where(inArray(schema.siteContent.key, SITE_TEXT_KEYS));
+  const map = Object.fromEntries(rows.map((r) => [r.key, r.value]));
+  return resolveSiteText(map);
+}
+
+/** Flat key → effective value map for the Admin → Site Text editor. */
+export async function getSiteTextValues(): Promise<Record<string, string>> {
+  const db = await getDb();
+  const rows = await db
+    .select()
+    .from(schema.siteContent)
+    .where(inArray(schema.siteContent.key, SITE_TEXT_KEYS));
+  const map = Object.fromEntries(rows.map((r) => [r.key, r.value]));
+  return resolveSiteTextFlat(map);
 }
 
 export async function getRecentCleanups(limit = 10) {

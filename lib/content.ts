@@ -18,6 +18,47 @@ export const HERO = {
     "Tom Ross has spent years paddling out — alone — to pull litter from Pittsburgh's Ohio River and Clearwater's Stevenson Creek. One bag at a time, he's proving what a single determined person can do for our waterways.",
 };
 
+// Section eyebrows / headings / intros. These are the editable "text blocks"
+// surfaced in Admin → Site Text; saved overrides live in the site_content table
+// and these are the fallbacks (see lib/siteText.ts). Keep them in sync with what
+// the components render by default.
+export const IMPACT = {
+  eyebrow: "The running count",
+  heading: "The count, broken down by waterway.",
+  intro:
+    "Totals update as Tommy logs each cleanup. Pounds are estimated at ~20 lbs per bag — grounded in his own field numbers — unless a weighed amount is recorded.",
+};
+
+export const FINDS = {
+  eyebrow: "Wildest finds",
+  heading: "You won't believe what comes out of the water",
+  intro:
+    "Beyond the bottles: the strangest, most jaw-dropping things Tommy has pulled from the river and creek — and the trash scenes that say it all.",
+};
+
+export const GALLERY = {
+  eyebrow: "From the water",
+  heading: "The view from the kayak",
+  intro:
+    "Real photos from Tommy's cleanups — the hauls, the river, and the wildlife that depends on it.",
+};
+
+export const PRESS_SECTION = {
+  eyebrow: "In the news",
+  heading: "The story keeps spreading",
+  intro:
+    "From local radio to regional features — coverage that turns one kayak into a movement.",
+};
+
+export const INVOLVED = {
+  eyebrow: "Get involved",
+  heading: "One person made a dent. Imagine all of us.",
+  intro:
+    "You don't need a kayak to help. Small, repeated choices keep more litter out of the water than any single cleanup ever could.",
+  ctaTitle: "Follow the count. Spread the word.",
+  ctaBody: "Every share puts more eyes on the water. Follow @TommyPicsUpTrash.",
+};
+
 export const QUOTES: { text: string; context?: string }[] = [
   {
     text: "I fill up my kayak as much as I can, and sadly, it's not even very difficult.",

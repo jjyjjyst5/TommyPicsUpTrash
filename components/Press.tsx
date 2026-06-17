@@ -2,6 +2,7 @@ import { ExternalLink, Newspaper, Tv, Radio } from "lucide-react";
 import Reveal from "./Reveal";
 import PressFeature from "./PressFeature";
 import type { PressItem } from "@/db/schema";
+import type { SiteText } from "@/lib/siteText";
 
 const TYPE_ICON: Record<string, React.ReactNode> = {
   article: <Newspaper className="h-4 w-4" />,
@@ -9,7 +10,13 @@ const TYPE_ICON: Record<string, React.ReactNode> = {
   radio: <Radio className="h-4 w-4" />,
 };
 
-export default function Press({ items }: { items: PressItem[] }) {
+export default function Press({
+  items,
+  text,
+}: {
+  items: PressItem[];
+  text: SiteText["press"];
+}) {
   const featured = items.find((i) => i.type === "radio");
   const rest = items.filter((i) => i.id !== featured?.id);
 
@@ -18,15 +25,10 @@ export default function Press({ items }: { items: PressItem[] }) {
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-widest text-teal">
-            In the news
+            {text.eyebrow}
           </p>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
-            The story keeps spreading
-          </h2>
-          <p className="mt-3 max-w-2xl text-muted">
-            From local radio to regional features — coverage that turns one kayak into a
-            movement.
-          </p>
+          <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{text.heading}</h2>
+          <p className="mt-3 max-w-2xl text-muted">{text.intro}</p>
         </Reveal>
 
         {featured && (

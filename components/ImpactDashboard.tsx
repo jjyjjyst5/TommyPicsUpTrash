@@ -2,6 +2,7 @@ import { Trash2, Scale, Recycle, MapPin, CalendarDays, Ship } from "lucide-react
 import CountUp from "./CountUp";
 import Reveal from "./Reveal";
 import type { Stats, WaterBodyStats } from "@/lib/stats";
+import type { SiteText } from "@/lib/siteText";
 
 function sinceYear(date: string | null) {
   if (!date) return null;
@@ -90,22 +91,24 @@ function Stat({
   );
 }
 
-export default function ImpactDashboard({ stats }: { stats: Stats }) {
+export default function ImpactDashboard({
+  stats,
+  text,
+}: {
+  stats: Stats;
+  text: SiteText["impact"];
+}) {
   return (
     <section id="impact" className="bg-background py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">
-            The running count
+            {text.eyebrow}
           </p>
           <h2 className="mt-2 max-w-2xl text-3xl font-bold tracking-tight md:text-4xl">
-            The count, broken down by waterway.
+            {text.heading}
           </h2>
-          <p className="mt-3 max-w-2xl text-muted">
-            Totals update as Tommy logs each cleanup. Pounds are estimated at{" "}
-            <strong>~20 lbs per bag</strong> — grounded in his own field numbers — unless a
-            weighed amount is recorded.
-          </p>
+          <p className="mt-3 max-w-2xl text-muted">{text.intro}</p>
         </Reveal>
 
         {/* Per-water-body cards */}
