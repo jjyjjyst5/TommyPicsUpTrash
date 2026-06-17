@@ -9,9 +9,10 @@ function FindMedia({ find }: { find: CrazyFind }) {
 
   if (find.mediaType === "image") {
     return (
-      <div className="aspect-video overflow-hidden bg-surface-muted">
+      <div className="overflow-hidden bg-surface-muted">
+        {/* No fixed aspect ratio — show the full photo (portrait or landscape) uncropped, like the Gallery. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={find.mediaUrl} alt={find.title} className="h-full w-full object-cover" loading="lazy" />
+        <img src={find.mediaUrl} alt={find.title} className="w-full object-cover" loading="lazy" />
       </div>
     );
   }
@@ -73,7 +74,7 @@ export default function CrazyFinds({ finds }: { finds: CrazyFind[] }) {
           </p>
         </Reveal>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {finds.map((find, i) => (
             <Reveal key={find.id} delay={0.05 * (i % 3)}>
               <figure className="overflow-hidden rounded-2xl border bg-surface shadow-sm">
